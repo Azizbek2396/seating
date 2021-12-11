@@ -63,7 +63,8 @@ class SaverSearch extends Saver
         ]);
 
         $query->andFilterWhere(['like', 'seat_id', $this->seat_id])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
+            ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', 'place_title', $this->place_title]);
 
         return $dataProvider;
     }

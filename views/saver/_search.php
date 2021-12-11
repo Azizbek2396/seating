@@ -24,6 +24,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comment') ?>
 
+    <?= $form->field($model, 'place_title') ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('custom', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('custom', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>

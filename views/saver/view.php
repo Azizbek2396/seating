@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'event_id',
                             'seat_id',
                             'comment',
+                            'place_title',
                         ],
                     ]) ?>
                 </div>
