@@ -9506,8 +9506,8 @@ $this->title = 'Рассадка';
         $zakrep_arr .= '\''.$key->seat_id.'\',';
 
         echo '
-                <div id="'.$key->seat_id.'comment" class="alert alert-success alert-dismissible dispnone">
-                  '.$key->comment.' - 
+                <div id="'.$key->seat_id.'comment" class="alert alert-success alert-dismissible dispnone seatcomment">
+                  '.$key->comment.' - '.$key->place_title.'
                 </div>
         ';
     }
@@ -9552,24 +9552,24 @@ $this->title = 'Рассадка';
 
         var id = '';
         var commenttext = '';
+        $('g g g g.zakrep').hover(
+          function() {
+            id = $(this).attr('id')+'comment';
+            $('#'+id).removeClass('dispnone');
+          }, function() {
+            $('#'+id).addClass('dispnone');
+          }
+        );
 
-
-        $('g g g g.zakrep').on({
-            mouseenter: function(){
+        $('g g g g.zakrep').mousemove(function( event ) {
                 id = $(this).attr('id')+'comment';
-                commenttext = $('#'+id).text();
-                $('#'+id).removeClass('dispnone');
-                $('#'+id).text(commenttext+'\n'+$(this).attr('title')).show();
-
-            },
-            mouseleave: function(){
-                $('#'+id).hide();
-                $('#'+id).text(commenttext);
-            },
-            mousemove: function(e){
-                $('#'+id).css({top: e.pageY-60, left: e.pageX});
-            }
+                x = event.offsetX;
+                y = event.offsetY;
+                $('#'+id).css('top', y);
+                $('#'+id).css('left', x);
         });
+
+        
 
         function zakrepTextInput(){
             if($('#zakreptext').val().length>0){
@@ -9627,5 +9627,8 @@ $this->title = 'Рассадка';
         .alert-success{
             position: absolute;
             min-width: 100px;
+        }
+        .seatcomment{
+            position: absolute;
         }
     </style>
