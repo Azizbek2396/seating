@@ -9531,7 +9531,9 @@ $this->title = 'Рассадка';
             $(this).removeClass('active');
           }
           else{
-            $(this).addClass('active'); 
+            if(!$(this).hasClass('zakrep')){
+                $(this).addClass('active');
+            }
           }
           
         });
@@ -9550,14 +9552,7 @@ $this->title = 'Рассадка';
 
         var id = '';
         var commenttext = '';
-        $('g g g g.zakrep').hover(
-          function() {
-            id = $(this).attr('id')+'comment';
-            $('#'+id).removeClass('dispnone');
-          }, function() {
-            $('#'+id).addClass('dispnone');
-          }
-        );
+
 
         $('g g g g.zakrep').on({
             mouseenter: function(){
