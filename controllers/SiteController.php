@@ -133,6 +133,7 @@ class SiteController extends Controller
 
     public function actionScheme()
     {
+
         $models = Saver::find()->where(['event_id'=>$this::EVENTID])->all();
 
         return $this->render('scheme', [
@@ -148,7 +149,13 @@ class SiteController extends Controller
             $model->seat_id = $value['seatid'];
             $model->place_title = $value['title'];
             $model->comment = Yii::$app->request->post('comment');
-            $model->save();
+            if(Saver::find()->where(['event_id'=>$model->event_id,'seat_id'=>$model->seat_id])->one()){
+                $a = 1;
+            }
+            else{
+                $model->save();
+            }
+            
         }
         die;
     }
