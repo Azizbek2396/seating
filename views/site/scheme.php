@@ -13,7 +13,10 @@ $this->title = 'Рассадка';
     <div class="col-lg-2"><a href="?r=saver/index" class="btn btn-success">Редактировать</a></div>
     <div class="col-lg-2"><a href="?r=site/scheme" class="btn btn-success">Обновить</a></div>
     <div class="col-lg-2"><a href="?r=site/download" class="btn btn-success">Скачать EXCEL</a></div>
-    <div class="col-lg-1"><button id="masshtabplus" class="btn btn-primary">+</button><button id="masshtabminus" class="btn btn-primary">-</button></div>
+    <div class="col-lg-1">
+        <button id="masshtabplus" class="btn btn-primary">+</button>
+        <button id="masshtabminus" class="btn btn-primary">-</button>
+    </div>
 </div>
 
 
@@ -9501,9 +9504,11 @@ $this->title = 'Рассадка';
 </div>
 
 <?php
-    $zakrep_arr = 'var zakr_arr = [';
+    $zakrep_arr = 'var zakr_arr = {};';
     foreach ($models as $key) {
-        $zakrep_arr .= '\''.$key->seat_id.'\',';
+        $colorclass = substr(hash('ripemd160', $key->comment), -6);
+        $zakrep_arr .= 'zakr_arr[\''.$key->seat_id.'\']=\''.$colorclass.'\';';
+        
 
         echo '
                 <div id="'.$key->seat_id.'comment" class="alert alert-success alert-dismissible dispnone seatcomment">
@@ -9511,14 +9516,16 @@ $this->title = 'Рассадка';
                 </div>
         ';
     }
-    $zakrep_arr .= '];';
+    $zakrep_arr .= '';
 ?>
 
     <script type="text/javascript">
         $("#draggable").draggable();
+        var color = Math.floor(Math.random() * 16777216).toString(16);
         <?=$zakrep_arr?>
         $.each(zakr_arr,function(index,value){
-            $('#'+value).addClass('zakrep');
+            $('#'+index).addClass('zakrep');
+            $('#'+index+' path').css('fill', '#'+value);
         });
 
 
@@ -9592,7 +9599,14 @@ $this->title = 'Рассадка';
             $('#draggable').css('width', '100%');
             $('#draggable').css('transform', 'translate3d(0px, 0px, 0px)');
         });
-        
+
+        function toHexString(n) {
+            if(n < 0) {
+                n = 0xFFFFFFFF + n + 1;
+            }
+            return "0x" + ("00000000" + n.toString(16).toUpperCase()).substr(-8);
+        }
+                
     </script>
     <style type="text/css">
         body > div.wrap > div.container{
