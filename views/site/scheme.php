@@ -9563,7 +9563,7 @@ $this->title = 'Рассадка';
 
         $('g g g g.zakrep').mousemove(function( event ) {
                 id = $(this).attr('id')+'comment';
-                x = event.offsetX;
+                x = event.offsetX+20;
                 y = event.offsetY;
                 $('#'+id).css('top', y);
                 $('#'+id).css('left', x);
@@ -9595,6 +9595,15 @@ $this->title = 'Рассадка';
         
     </script>
     <style type="text/css">
+        body > div.wrap > div.container{
+            width: 100%;
+        }
+        .wrap > .container {
+            padding: 10px 15px 20px;
+        }
+        nav{
+            display: none;
+        }
         #schemeid{
             width: 100%;
             height: 50%;
