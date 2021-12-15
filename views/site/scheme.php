@@ -9503,8 +9503,13 @@ $this->title = 'Рассадка';
 
 </div>
 
+
+
+
+
 <?php
     $zakrep_arr = 'var zakr_arr = {};';
+    $accessable_count = 0;
     foreach ($models as $key) {
         $colorclass = substr(hash('ripemd160', $key->comment), -6);
         $zakrep_arr .= 'zakr_arr[\''.$key->seat_id.'\']=\''.$colorclass.'\';';
@@ -9515,9 +9520,14 @@ $this->title = 'Рассадка';
                   '.$key->comment.' - '.$key->place_title.'
                 </div>
         ';
+        if($key->comment=='Свободные места'){
+            $accessable_count++;
+        }
     }
     $zakrep_arr .= '';
 ?>
+
+<div id="accessable_places"><span id='accessable_color_span'></span> Свободные места: <span id='accessable_count'><?=$accessable_count?></span></div>
 
     <script type="text/javascript">
         $("#draggable").draggable();
@@ -9653,5 +9663,16 @@ $this->title = 'Рассадка';
         }
         .seatcomment{
             position: absolute;
+        }
+        #accessable_places{
+            position: absolute;
+            top: 100px;
+        }
+
+        #accessable_color_span{
+            background-color: rgb(217, 171, 10);
+            width: 10px;
+            height: 10px;
+            display: inline-block;
         }
     </style>
